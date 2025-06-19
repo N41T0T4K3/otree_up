@@ -1,0 +1,41 @@
+{% load static %}
+
+{% extends "global/Page.html" %}
+{% block content %}
+<h4>以下の問いにもう一度答えてください。</h4>
+
+<div style="display: flex; justify-content: center; gap: 40px; align-items: center;"></div>
+
+<p>提示された2つのものについてどちらの方が好きかと尋ねられたとき、100人中何人が一方のものを選び、あと何人がもう一方のものを選ぶのかを、シークバーを動かして予想してください。</p>
+
+<div style="display: flex; align-items: center; gap: 40px; justify-content: center;">
+
+    <div style="text-align: center;">
+        <img src="{% static food1_img %}" width="120"><br>
+        <p>{{ food1_label}}</p>
+    </div>
+
+    <input type="range" min="0" max="100" name="second_guess" id="slider" value="{{ initial_guess }}" oninput="updateLabel()">
+    
+    <div style="text-align: center;">
+        <img src="{% static food2_img %}" width="120"><br>
+        <p>{{ food2_label }}</p>
+    </div>
+
+</div>
+
+<p><span id="leftVal">50</span>人 vs <span id="rightVal">50</span>人</p>
+
+<script>
+    function updateLabel() {
+        var slider = document.getElementById("slider");
+        var left = document.getElementById("leftVal");
+        var right = document.getElementById("rightVal");
+        left.textContent = slider.value;
+        right.textContent = 100 - slider.value;
+    }
+    window.onload = updateLabel;
+</script>
+
+<button class="btn btn-primary">送信</button>
+{% endblock %}

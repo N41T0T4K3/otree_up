@@ -1,5 +1,15 @@
 from os import environ
 
+import os
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'food_pref', 'static'),
+]
+
+
+
 SESSION_CONFIGS = [
     dict(
         name="simple_pd",
@@ -12,13 +22,17 @@ SESSION_CONFIGS = [
         num_demo_participants=3,
         players_per_group=3,
     ),
-    dict(
-        name="user_friendly_sd",
-        app_sequence=["user_friendly_sd"],
+        dict(
+        name='food_pref',
+        app_sequence=['food_pref'],
         num_demo_participants=3,
-        players_per_group=3,
     ),
 ]
+
+
+LANGUAGE_CODE = 'ja'
+REAL_WORLD_CURRENCY_CODE = 'JPY'
+USE_POINTS = False
 
 
 if "DATABASE_URL" in environ:
@@ -28,6 +42,19 @@ if "DATABASE_URL" in environ:
 # in SESSION_CONFIGS, except those that explicitly override it.
 # the session config can be accessed from methods in your apps as self.session.config,
 # e.g. self.session.config['participation_fee']
+
+
+MIDDLEWARE = [
+    'django.middleware.security.SecurityMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',  # CSRF保護のために必要
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+]
+
+
 
 SESSION_CONFIG_DEFAULTS = dict(
     real_world_currency_per_point=1.00, participation_fee=0.00, doc=""

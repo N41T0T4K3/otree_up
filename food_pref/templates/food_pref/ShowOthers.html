@@ -1,0 +1,13 @@
+{% extends "global/Page.html" %}
+{% block content %}
+
+<h3>{{ food1_label }} vs {{ food2_label}}</h3>
+
+<p>他の参加者の予想</p>
+<ul>
+    {% for p in others %}
+        <li>参加者 {{ p.id_in_group }}: {{ p.first_guess }}人 vs {{ p.complement }}人</li>
+    {% endfor %}
+</ul>
+<button class="btn btn-primary">次へ</button>
+{% endblock %}
